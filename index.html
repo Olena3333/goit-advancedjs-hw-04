@@ -1,47 +1,48 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Image Search</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-        />
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/gh/raphaelfabeni/css-loader@master/dist/css-loader.min.css"
-        />
-      <script type="module" crossorigin src="/goit-advancedjs-hw-04/index.js"></script>
-      <link rel="modulepreload" crossorigin href="/goit-advancedjs-hw-04/assets/vendor-CIF6YjI2.js">
-      <link rel="stylesheet" crossorigin href="/goit-advancedjs-hw-04/assets/vendor-DumFYO8Z.css">
-      <link rel="stylesheet" crossorigin href="/goit-advancedjs-hw-04/assets/index-Lzb7sdzH.css">
-    </head>
-    <body>
-        <header>
-            <section class="search">
-                <form class="form">
-                    <label>
-                        <input
-                            type="text"
-                            name="search-text"
-                            placeholder="Search images..."
-                            required
-                        />
-                    </label>
-                    <button type="submit">Search</button>
-                </form>
-            </section>
-        </header>
-        <main>
-            <section class="container">
-                <span class="loader loader-default"></span>
-                <ul class="gallery"></ul>
-            </section>
-        </main>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Search</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/raphaelfabeni/css-loader@master/dist/css-loader.min.css"
+    />
+    <script type="module" crossorigin src="/goit-advancedjs-hw-04/index.js"></script>
+    <link rel="modulepreload" crossorigin href="/goit-advancedjs-hw-04/assets/vendor-Cje2eWL6.js">
+    <link rel="stylesheet" crossorigin href="/goit-advancedjs-hw-04/assets/vendor-DumFYO8Z.css">
+    <link rel="stylesheet" crossorigin href="/goit-advancedjs-hw-04/assets/index-DhzACWpD.css">
+  </head>
+  <body>
+    <header>
+      <section class="search">
+        <form class="form">
+          <label>
+            <input
+              type="text"
+              name="search-text"
+              placeholder="Search images..."
+              required
+            />
+          </label>
+          <button type="submit">Search</button>
+        </form>
+      </section>
+    </header>
+    <main>
+      <section class="container">
+        <ul class="gallery"></ul>
+        <button type="button" class="load-more">Load more</button>
+        <span class="loader loader-default"></span>
+      </section>
+    </main>
 
-    </body>
+  </body>
 </html>
