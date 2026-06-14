@@ -1,14 +1,26 @@
-import SimpleLightbox from 'simplelightbox';
+import SimpleLightbox from 'simplelightbox/dist/simple-lightbox.esm.js';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const gallery = document.querySelector('.gallery');
 const loader = document.querySelector('.loader');
+const loadMoreBtn = document.querySelector('.load-more');
 
-const lightbox = new SimpleLightbox('.gallery a', {
+const LIGHTBOX_OPTIONS = {
     captionsData: 'alt',
     captionDelay: 250,
     captionPosition: 'bottom',
-});
+};
+
+function makeLightbox() {
+    const lb = new SimpleLightbox('.gallery a', LIGHTBOX_OPTIONS);
+    lb.refresh = () => {
+        lb.destroy();
+        lightbox = makeLightbox();
+    };
+    return lb;
+}
+
+let lightbox = makeLightbox();
 
 export function createGallery(images) {
     const markup = images
@@ -66,4 +78,12 @@ export function showLoader() {
 
 export function hideLoader() {
     loader.classList.remove('is-active');
+}
+
+export function showLoadMoreButton() {
+    loadMoreBtn.classList.add('is-visible');
+}
+
+export function hideLoadMoreButton() {
+    loadMoreBtn.classList.remove('is-visible');
 }

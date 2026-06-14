@@ -1,81 +1,116 @@
-# GoIT Advanced JS — Homework 3
+# GoIT Advanced JS — Homework 4
 
 **Author:** Olena Solonikova
 
-## Image Search Application
+## Image Search Application with Pagination
 
-This project is a web application for searching and displaying images using the **Pixabay REST API**. Users can enter a keyword, submit the search form, and browse the matching results in a responsive gallery.
+This project is an enhanced version of the Pixabay image search application. It
+allows users to search for photos, browse results in a responsive gallery, and
+load additional images using pagination.
 
 ### Live Demo
 
-https://olena3333.github.io/goit-advancedjs-hw-03/
+https://olena3333.github.io/goit-advancedjs-hw-04/
 
 ---
 
-# Project Objective
+# Project Description
 
-The main goal of this assignment is to create a frontend application that communicates with the public **Pixabay API** and dynamically renders image search results.
-
----
-
-# Application Features
-
-## Search Form
-
-The interface includes:
-
-* a text input for entering a search request;
-* a submit button that starts the search process.
-
-When the form is submitted, the application sends an HTTP request to Pixabay with the following parameters:
-
-* `key` — personal API key;
-* `q` — user search query (URL encoded);
-* `image_type=photo` — returns only photographs;
-* `orientation=horizontal` — limits results to horizontal images;
-* `safesearch=true` — filters out unsafe content.
+The application communicates with the **Pixabay REST API** to retrieve images
+based on a user's search request. Compared to the previous version, it
+introduces **Axios**, **async/await**, pagination support, smooth scrolling, and
+an improved user experience.
 
 ---
 
-## Image Gallery
+# Main Features
 
-Search results are displayed as a responsive gallery of image cards.
+## Image Search
 
-Each card contains:
+Users can enter a keyword into the search field and submit the form to receive
+matching photographs from Pixabay.
 
-* preview image;
-* number of likes;
-* number of views;
-* number of comments;
-* number of downloads.
+Each request includes the following parameters:
 
----
-
-## Lightbox Preview
-
-Selecting an image opens the original version inside a lightbox using **SimpleLightbox**, allowing users to browse images in a larger format.
+- `key` — personal API access key;
+- `q` — encoded search query;
+- `image_type=photo`;
+- `orientation=horizontal`;
+- `safesearch=true`;
+- `per_page=15`.
 
 ---
 
-## Notifications
+## Axios and Async/Await
 
-If the search returns no matching images, the application displays an **iziToast** notification similar to:
+HTTP requests are implemented with the **Axios** library.
 
-```id="k2iz5g"
-Sorry, there are no images matching your search query. Please try again!
+All asynchronous operations use modern **async/await** syntax to improve
+readability and simplify error handling.
+
+---
+
+# Pagination
+
+The gallery loads **15 images per request**.
+
+Pagination works as follows:
+
+- the initial search starts with `page = 1`;
+- every click on **Load more** increases the page number by one;
+- submitting a new search resets the page counter back to `1`;
+- the current search query is stored so additional requests continue loading the
+  same collection.
+
+---
+
+# Load More Button
+
+A dedicated **Load more** button appears beneath the gallery after the first
+successful search.
+
+Behavior:
+
+- hidden when no images are displayed;
+- shown after results are rendered (if additional pages are available);
+- temporarily hidden while a new search is performed;
+- disappears automatically when the final page has been reached.
+
+The loading indicator is positioned below the button during data retrieval.
+
+---
+
+# End of Search Results
+
+The application uses the `totalHits` value returned by the Pixabay API to
+determine when all available images have been loaded.
+
+When no further pages remain:
+
+- the **Load more** button is hidden;
+- an **iziToast** notification informs the user:
+
+```text
+We're sorry, but you've reached the end of search results.
 ```
 
 ---
 
-## Loading Indicator
+# Smooth Scrolling
 
-While data is being fetched from the API, a loading spinner or indicator is shown to inform the user that the request is in progress.
+After loading another batch of images, the page automatically scrolls down with
+a smooth animation.
+
+The scroll distance is calculated using:
+
+- `getBoundingClientRect()` to determine the height of a gallery card;
+- `window.scrollBy()` to move approximately two card heights.
 
 ---
 
 # Project Structure
 
-The codebase is organized into separate modules for better readability and maintainability.
+The application follows a modular ES Modules architecture.
 
 ```text
 src/
@@ -91,26 +126,57 @@ src/
 └── main.js
 ```
 
-* **pixabay-api.js** handles communication with the Pixabay service.
-* **render-functions.js** contains helper functions responsible for rendering gallery elements in the DOM.
+### `src/js/pixabay-api.js`
+
+Responsible for communication with the Pixabay API.
+
+Provides:
+
+- `getImagesByQuery(query, page)` — performs an Axios request and returns
+  `response.data`.
+
+### `src/js/render-functions.js`
+
+Contains helper functions for UI rendering and the **SimpleLightbox** instance.
+
+Includes:
+
+- `createGallery(images)`
+- `clearGallery()`
+- `showLoader()`
+- `hideLoader()`
+- `showLoadMoreButton()`
+- `hideLoadMoreButton()`
+
+### `src/main.js`
+
+Contains the core application logic:
+
+- search form handling;
+- API requests;
+- iziToast notifications;
+- pagination management;
+- smooth scrolling;
+- response validation.
 
 ---
 
-# Technology Stack
+# Technologies Used
 
-* Vite
-* Vanilla JavaScript (ES Modules)
-* HTML5
-* CSS3
-* Pixabay REST API
-* SimpleLightbox
-* iziToast
+- Vite
+- Vanilla JavaScript (ES Modules)
+- Axios
+- SimpleLightbox
+- iziToast
+- HTML5
+- CSS3
+- Pixabay REST API
 
 ---
 
 # Installation
 
-Install all project dependencies:
+Install project dependencies:
 
 ```bash
 npm install
@@ -130,23 +196,24 @@ npm run dev
 
 # Production Build
 
-Create an optimized production build by running:
+Generate an optimized production build:
 
 ```bash
 npm run build
 ```
 
-The compiled files will be generated inside the `dist/` directory and configured for deployment to:
+The compiled project is created inside the `dist/` folder and configured for
+deployment to:
 
 ```text
-/goit-advancedjs-hw-03/
+/goit-advancedjs-hw-04/
 ```
 
 ---
 
-# Local Preview
+# Preview
 
-To preview the production version locally, execute:
+To preview the production build locally:
 
 ```bash
 npm run preview
@@ -154,7 +221,19 @@ npm run preview
 
 ---
 
+# Submission
+
+The completed homework should include:
+
+- a link to the GitHub repository containing the source code;
+- a link to the deployed GitHub Pages version;
+- a `.zip` archive of the repository if required by the assignment.
+
+---
+
 # Summary
 
-This project demonstrates practical work with asynchronous JavaScript, REST API requests, modular architecture, DOM manipulation, and third-party libraries for notifications and image previews.
-
+This project demonstrates practical skills in asynchronous JavaScript, modular
+application architecture, working with REST APIs, pagination, dynamic DOM
+updates, and integration of third-party libraries such as Axios, SimpleLightbox,
+and iziToast.
